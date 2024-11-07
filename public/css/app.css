@@ -1,0 +1,11 @@
+.switch-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+    gap: 10px; /* Espacio entre columnas */
+}
+
+.switch-wrap {
+    display: flex;
+    justify-content: space-between; /* Alinear el texto y el switch */
+    align-items: center; /* Centrar verticalmente */
+}
