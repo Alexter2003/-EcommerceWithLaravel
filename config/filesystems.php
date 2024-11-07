@@ -40,7 +40,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -55,6 +55,14 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
+        ],
+        'firebase' => [
+            'driver' => 'gcs', // Usa Google Cloud Storage (GCS) como driver
+            'project_id' => env('FIREBASE_PROJECT_ID'),
+            'key_file' => storage_path('app/firebase-service-account.json'), // Ruta al archivo de cuenta de servicio
+            'bucket' => env('FIREBASE_BUCKET'), // Nombre del bucket en Firebase Storage
+            'path_prefix' => null,
+            'storage_api_uri' => null,
         ],
 
     ],

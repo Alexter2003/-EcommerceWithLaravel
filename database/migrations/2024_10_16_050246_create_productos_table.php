@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->integer('Precio');
             $table->bigInteger('idMarcas')->unsigned();
             $table->foreign('idMarcas')->references('idMarcas')->on('marcas');
+            $table->boolean('estado')->default(1); // 1: Activo, 0: Inactivo
             $table->timestamps();
         });
     }
