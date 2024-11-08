@@ -4,6 +4,9 @@
     <section class="feature_part padding_top" style="margin-bottom: 50px">
         <div class="container">
             <h1>EDITAR PRODUCTOS</h1>
+            <a class="genric-btn success" href="/crudProductos" style="height: 40px; margin-top: 5px;">
+                Regresar
+            </a>
             @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}

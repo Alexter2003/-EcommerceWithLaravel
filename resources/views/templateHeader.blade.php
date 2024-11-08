@@ -67,8 +67,8 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="{{ url('crudProductos') }}"> Productos</a>
-                                        <a class="dropdown-item" href="single-product.html">product details</a>
-
+                                        <a class="dropdown-item" href="{{ url('crudMarcas') }}">Marcas</a>
+                                        <a class="dropdown-item" href="{{ url('crudCategorias') }}">Categorias</a>
                                     </div>
                                 </li>
                             </ul>
