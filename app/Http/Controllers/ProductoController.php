@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Kreait\Firebase\Factory; // Asegúrate de importar las clases necesarias
+use Kreait\Firebase\Factory;
 use App\Models\Categoria;
 use App\Models\Marca;
 use App\Models\Producto;

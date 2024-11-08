@@ -9,7 +9,7 @@
                     <div class="banner_slider owl-carousel">
 
                         @foreach ($productos as $producto)
-                            @if ($producto->Estado != 0)
+                            @if ($producto->Estado != 0 && $producto->EstadoMarca != 0)
                                 <div class="single_banner_slider">
                                     <div class="row">
                                         <div class="col-lg-5 col-md-8">

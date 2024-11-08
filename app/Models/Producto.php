@@ -34,7 +34,7 @@ class Producto extends Model
     // Relación: un producto puede tener muchas categorías a través de la tabla 'categorias_productos'
     public function categorias()
     {
-        return $this->bbelongsTo(Categoria::class, 'idCategorias');
+        return $this->belongsTo(Categoria::class, 'idCategorias');
     }
 }
 

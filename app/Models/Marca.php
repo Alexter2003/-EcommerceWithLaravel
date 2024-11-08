@@ -9,6 +9,14 @@ class Marca extends Model
 {
     use HasFactory;
 
+    protected $table = 'marcas';
+    protected $primaryKey = 'idMarcas';
+    public $incrementing = true;
+
+    protected $fillable = [
+        'Nombre',
+    ];
+
     public function productos()
     {
         return $this->hasMany(Producto::class, 'idMarcas');
