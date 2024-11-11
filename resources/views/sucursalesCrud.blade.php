@@ -3,9 +3,9 @@
 @section('content')
     <section class="feature_part padding_top">
         <div style="padding: 40px;">
-            <h1>TABLA DE ADMINISTRACION DE CATEGORIAS</h1>
-            <a class="genric-btn success" href="/crearCategoria" style="margin-top: 10px; margin-bottom: 10px;">
-                Agregar categoria
+            <h1>TABLA DE ADMINISTRACION DE SUCURSALES</h1>
+            <a class="genric-btn success" href="/crearSucursal" style="margin-top: 10px; margin-bottom: 10px;">
+                Agregar sucursal
             </a>
             @if (session('success'))
                 <div class="alert alert-success">
@@ -35,13 +35,11 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        ¿Estás seguro de que quieres desactivar esta categoria? Si lo hace, todos los productos con esta
-                        categoria
-                        dejaran de aparecer
+                        ¿Estás seguro de que quieres desactivar esta sucursal?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <form id="deleteCategoriasForm" action="" method="POST" style="display: inline;">
+                        <form id="deleteSucursalesForm" action="" method="POST" style="display: inline;">
                             @method('PATCH')
                             @csrf
                             <button type="submit" class="btn btn-danger">Desactivar</button>
@@ -55,30 +53,37 @@
 
     <script>
         // Convertimos los productos de Blade a JSON para usarlos en JavaScript
-        const categorias = @json($categorias);
+        const sucursales = @json($sucursales);
 
         document.addEventListener('DOMContentLoaded', function() {
             const gridOptions = {
                 columnDefs: [{
                         headerName: "ID",
-                        field: "idCategorias",
+                        field: "idSucursal",
                         sortable: true,
                         filter: true,
-                        flex: 2
+                        width: 80
                     },
                     {
                         headerName: "Nombre",
                         field: "Nombre",
                         sortable: true,
                         filter: true,
-                        flex: 200
+                        width: 200
                     },
                     {
-                        headerName: "Descripcion",
-                        field: "Descripcion",
+                        headerName: "Direccion",
+                        field: "Direccion",
                         sortable: true,
                         filter: true,
-                        flex: 200
+                        width: 300
+                    },
+                    {
+                        headerName: "Ubicacion",
+                        field: "Ubicacion",
+                        sortable: true,
+                        filter: true,
+                        width: 100
                     },
                     {
                         headerName: "Estado",
@@ -104,18 +109,18 @@
                             if (params.data.Estado !== 0) {
                                 deleteButton = `
                                     <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmDeleteModal" 
-                                        data-id="${params.data.idCategorias}">Eliminar</button>
+                                        data-id="${params.data.idSucursal}">Eliminar</button>
                                 `;
                             }
 
                             return `
-                                <a href="/editarCategoria/${params.data.idCategorias}" class="btn btn-sm btn-primary">Editar</a>
+                                <a href="/editarSucursal/${params.data.idSucursal}" class="btn btn-sm btn-primary">Editar</a>
                                 ${deleteButton}
                             `;
                         }
                     }
                 ],
-                rowData: categorias,
+                rowData: sucursales,
                 pagination: true,
                 paginationPageSize: 10
             };
@@ -129,11 +134,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             $('#confirmDeleteModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget); // Botón que activó el modal
-                var categoriaId = button.data('id'); // Obtener el ID del producto
-                var actionUrl = '/eliminarCategoria/' + categoriaId; // Crear la URL de eliminación
+                var productId = button.data('id'); // Obtener el ID del producto
+                var actionUrl = '/eliminarProducto/' + productId; // Crear la URL de eliminación
 
                 // Establecer la acción del formulario al URL adecuado
-                $('#deleteCategoriasForm').attr('action', actionUrl);
+                $('#deleteSucursalesForm').attr('action', actionUrl);
             });
         });
     </script>

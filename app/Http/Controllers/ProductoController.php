@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sucursal;
 use Kreait\Firebase\Factory;
 use App\Models\Categoria;
 use App\Models\Marca;
@@ -194,5 +195,37 @@ class ProductoController extends Controller
             \Log::error("Error al desactivar el producto con ID {$id}: " . $e->getMessage());
             return redirect()->route('crudProductos')->with('error', 'Hubo un error al desactivar el producto');
         }
+    }
+
+    public function productosPorCategoria($id)
+    {
+        $marcas = Marca::all();
+        $categorias = Categoria::all();
+        $productos = DB::table('listadoproductos')->where('idCategorias', '=', $id)->get();
+        return view('tienda', ['productos' => $productos, 'marcas' => $marcas, 'categorias' => $categorias]);
+    }
+
+    public function productosPorMarcas($id)
+    {
+        $marcas = Marca::all();
+        $categorias = Categoria::all();
+        $productos = DB::table('listadoproductos')->where('idMarcas', '=', $id)->get();
+        return view('tienda', ['productos' => $productos, 'marcas' => $marcas, 'categorias' => $categorias]);
+    }
+
+    public function todosLosProductos()
+    {
+        $marcas = Marca::all();
+        $categorias = Categoria::all();
+        $productos = DB::table('listadoproductos')->get();
+        return view('tienda', ['productos' => $productos, 'marcas' => $marcas, 'categorias' => $categorias]);
+    }
+
+    public function detalleProducto($id)
+    {
+        $sucursales = Sucursal::all();
+        $producto = DB::table('listadoproductos')->where('idProductos', '=', $id)->first();
+        $existenciaInventarios = DB::table('existenciaporsucursal')->where('idProductos', '=', $id)->get();
+        return view('detallesProductos', ['producto' => $producto, 'existenciaInventarios' => $existenciaInventarios, 'sucursales' => $sucursales]);
     }
 }

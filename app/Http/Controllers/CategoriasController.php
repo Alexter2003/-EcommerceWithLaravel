@@ -32,7 +32,7 @@ class CategoriasController extends Controller
                 'descripcion' => 'required'
             ]);
 
-            // Crear el nuevo producto
+            // Crear el nueva categoria
             $categoria = new Categoria();
             $categoria->Nombre = $validatedData['nombre'];
             $categoria->Descripcion = $validatedData['descripcion'];
@@ -86,4 +86,24 @@ class CategoriasController extends Controller
         }
     }
 
+    //ELIMINACION PASIVA DE LA CATEGORIA
+    public function eliminarCategoria($id)
+    {
+        DB::beginTransaction();
+
+        try {
+            $categoria = Categoria::findOrFail($id);
+
+            $categoria->Estado = 0;
+            $categoria->save();
+
+            DB::commit();
+
+            return redirect()->route('categorias.crud')->with('success', 'Categoria desactivada correctamente');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error("Error al desactivar la categoria con ID {$id}: " . $e->getMessage());
+            return redirect()->route('crudCategorias')->with('error', 'Hubo un error al desactivar la categoria');
+        }
+    }
 }

@@ -27,7 +27,7 @@ class MarcaController extends Controller
                 'nombre' => 'required',
             ]);
 
-            // Crear el nuevo producto
+            // Crear el nueva marca
             $marca = new Marca();
             $marca->Nombre = $validatedData['nombre'];
             $marca->save();
@@ -65,7 +65,7 @@ class MarcaController extends Controller
                 'estado' => 'required|numeric',
             ]);
 
-            //BUSCAR EL PRODUCTO
+            //BUSCAR LA MARCA
             $marca = Marca::findOrFail($id);
 
             $marca->Nombre = $validatedData['nombre'];
@@ -88,17 +88,17 @@ class MarcaController extends Controller
         DB::beginTransaction();
 
         try {
-            $producto = Marca::findOrFail($id);
+            $marca = Marca::findOrFail($id);
 
-            $producto->Estado = 0;
-            $producto->save();
+            $marca->Estado = 0;
+            $marca->save();
 
             DB::commit();
 
             return redirect()->route('marcas.crud')->with('success', 'Marca desactivada correctamente');
         } catch (\Exception $e) {
             DB::rollBack();
-            \Log::error("Error al desactivar el producto con ID {$id}: " . $e->getMessage());
+            \Log::error("Error al desactivar la marca con ID {$id}: " . $e->getMessage());
             return redirect()->route('crudProductos')->with('error', 'Hubo un error al desactivar la marca');
         }
     }

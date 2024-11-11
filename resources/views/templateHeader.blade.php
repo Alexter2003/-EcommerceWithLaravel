@@ -59,6 +59,19 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/">Inicio</a>
                                 </li>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        Tienda
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                        <a class="dropdown-item" href="{{ route('productos.todos') }}">
+                                            Tienda por categorias
+                                        </a>
+                                    </div>
+                                </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
                                         role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -69,26 +82,43 @@
                                         <a class="dropdown-item" href="{{ url('crudProductos') }}"> Productos</a>
                                         <a class="dropdown-item" href="{{ url('crudMarcas') }}">Marcas</a>
                                         <a class="dropdown-item" href="{{ url('crudCategorias') }}">Categorias</a>
+                                        <a class="dropdown-item" href="{{ url('crudSucursales') }}">Sucursales</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
+                                        role="button" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        Administracion Tienda
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                        <a class="dropdown-item" href="{{ route('inventarioProducto.crud', 1) }}">
+                                            Existencias
+                                        </a>
                                     </div>
                                 </li>
                             </ul>
                         </div>
-                        <div class="hearer_icon d-flex">
-                            <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
-                            <a href=""><i class="ti-heart"></i></a>
-                            <div class="dropdown cart">
-                                <a class="dropdown-toggle" href="#" id="navbarDropdown3" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-cart-plus"></i>
+                        <div class="header_icon d-flex">
+                            <div class="cart-container" style="position: relative;">
+                                <a href="/carrito" id="cart-icon" role="button">
+                                    <i style="font-size: 24px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                        </svg>
+                                    </i>
+
+                                    <span id="contador-carrito"
+                                        style="position: absolute; right: -10px; background-color: red; color: white; border-radius: 50%;
+                                        padding: 2px 6px; font-size: 12px; font-weight: bold;">
+                                        0
+                                    </span>
                                 </a>
-                                <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <div class="single_product">
-
-                                </div>
-                            </div> -->
-
                             </div>
                         </div>
+
                     </nav>
                 </div>
             </div>
@@ -133,6 +163,24 @@
     <script src="{{ asset('js/price_rangs.js') }}"></script>
     <!-- custom js -->
     <script src="{{ asset('js/custom.js') }}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            actualizarContadorCarrito();
+        });
+
+        function actualizarContadorCarrito() {
+            let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+            let cantidadTotal = carrito.length;
+
+            const contadorCarrito = document.getElementById('contador-carrito');
+
+            if (contadorCarrito) {
+                contadorCarrito.textContent = cantidadTotal;
+            }
+        }
+    </script>
 
 </body>
 
