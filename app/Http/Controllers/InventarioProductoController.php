@@ -13,6 +13,7 @@ class InventarioProductoController extends Controller
     //Tabla de existencia en diferentes inventarios
     public function obtenerInventarioProducto($id)
     {
+        //SE BUSCA EL INVENTARIO POR EL ID DE LA SUCURSAL Y SE REGRESAN LOS PRODUCTOS
         $inventario = DB::table('viewInventarioProducto')->where('idSucursal', '=', $id)->get();
         $sucursales = Sucursal::all();
         return view('inventarioProductosCrud', ['inventario' => $inventario, 'sucursales' => $sucursales, 'idSucursalSeleccionada' => $id]);
@@ -46,7 +47,7 @@ class InventarioProductoController extends Controller
             $inventario = InventarioProducto::where('idSucursal', '=', $validatedData['idSucursal'])
                 ->where('idProductos', '=', $validatedData['idProductos'])
                 ->first();
-
+            // En el caso de que exista, aumentar la cantidad
             if ($inventario) {
                 $inventario->Cantidad += $validatedData['Cantidad'];
                 $inventario->Lote = $validatedData['Lote'];

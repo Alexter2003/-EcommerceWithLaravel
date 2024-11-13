@@ -14,7 +14,7 @@ class InventarioProducto extends Model
         'idSucursal',
         'idProductos',
         'Cantidad',
-        'Fecha_Compra',
+        'FechaCompra',
         'Lote',
     ];
 

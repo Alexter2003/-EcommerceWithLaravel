@@ -68,7 +68,7 @@ class CategoriasController extends Controller
                 'estado' => 'required|numeric',
             ]);
 
-            //BUSCAR EL PRODUCTO
+            //BUSCAR LA CATEGORIA
             $categoria = Categoria::findOrFail($id);
 
             $categoria->Nombre = $validatedData['nombre'];

@@ -197,22 +197,27 @@ class ProductoController extends Controller
         }
     }
 
+    //REGRESAR PRODUCTOS POR CATEGORIA
     public function productosPorCategoria($id)
     {
         $marcas = Marca::all();
         $categorias = Categoria::all();
+        //buscar en la view, productos segun el idCategorias
         $productos = DB::table('listadoproductos')->where('idCategorias', '=', $id)->get();
         return view('tienda', ['productos' => $productos, 'marcas' => $marcas, 'categorias' => $categorias]);
     }
 
+    //REGRESAR PRODUCTOS POR MARCAS
     public function productosPorMarcas($id)
     {
         $marcas = Marca::all();
         $categorias = Categoria::all();
+        //Buscar en la view, productos segun el idMarcas
         $productos = DB::table('listadoproductos')->where('idMarcas', '=', $id)->get();
         return view('tienda', ['productos' => $productos, 'marcas' => $marcas, 'categorias' => $categorias]);
     }
 
+    //RETORNAR TODOS LOS PRODUCTOS DE LA VIEW
     public function todosLosProductos()
     {
         $marcas = Marca::all();
@@ -221,6 +226,7 @@ class ProductoController extends Controller
         return view('tienda', ['productos' => $productos, 'marcas' => $marcas, 'categorias' => $categorias]);
     }
 
+    //RETORNAR UN PRODUCTO SEGUN IDPRODUCTOS
     public function detalleProducto($id)
     {
         $sucursales = Sucursal::all();

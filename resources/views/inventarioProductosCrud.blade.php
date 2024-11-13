@@ -4,7 +4,7 @@
     <section class="feature_part padding_top">
         <div style="padding: 40px;">
             <h1>TABLA DE ADMINISTRACION DE EXISTENCIAS</h1>
-            <a class="genric-btn success" href="/-f" style="margin-top: 10px; margin-bottom: 10px;">
+            <a class="genric-btn success" href="/crearExistenciaInventario" style="margin-top: 10px; margin-bottom: 10px;">
                 Agregar Inventario
             </a>
             @if (session('success'))
