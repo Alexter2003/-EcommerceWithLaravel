@@ -46,7 +46,8 @@
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="/"> <img src="{{ asset('img/logo.png') }}" alt="logo">
+                        <a class="navbar-brand" href="/">
+                            Store Online S.A
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -59,7 +60,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/">Inicio</a>
                                 </li>
-                                </li>
+
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
                                         role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -68,54 +69,142 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
                                         <a class="dropdown-item" href="{{ route('productos.todos') }}">
-                                            Tienda por categorias
+                                            Tienda por categorías
                                         </a>
                                     </div>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        Administracion
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="{{ url('crudProductos') }}"> Productos</a>
-                                        <a class="dropdown-item" href="{{ url('crudMarcas') }}">Marcas</a>
-                                        <a class="dropdown-item" href="{{ url('crudCategorias') }}">Categorias</a>
-                                        <a class="dropdown-item" href="{{ url('crudSucursales') }}">Sucursales</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        Administracion Tienda
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
-                                        <a class="dropdown-item" href="{{ route('inventarioProducto.crud', 1) }}">
-                                            Existencias
+                                @if (Auth::check() && Auth::user()->hasRole('Gerente'))
+                                    <!-- Código para mostrar opciones de administración -->
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
+                                            role="button" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            Usuarios
                                         </a>
-                                    </div>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                            <a class="dropdown-item" href="{{ url('crudUsuarios') }}"> Administrar
+                                                usuarios</a>
+                                        </div>
+                                    </li>
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
+                                            role="button" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            Inventario
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                            <a class="dropdown-item" href="{{ url('crearTraslado') }}"> Traslados</a>
+                                        </div>
+                                    </li>
+                                @endif
+
+                                <!-- Solo se muestra si el usuario tiene el rol de admin -->
+                                @if (Auth::check() && Auth::user()->hasRole('Admin'))
+                                    <!-- Código para mostrar opciones de administración -->
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
+                                            role="button" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            Administracion
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                            <a class="dropdown-item" href="{{ url('crudProductos') }}"> Productos</a>
+                                            <a class="dropdown-item" href="{{ url('crudMarcas') }}">Marcas</a>
+                                            <a class="dropdown-item"
+                                                href="{{ url('crudCategorias') }}">Categorias</a>
+                                            <a class="dropdown-item"
+                                                href="{{ url('crudSucursales') }}">Sucursales</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
+                                            role="button" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            Administracion Tienda
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                                            <a class="dropdown-item"
+                                                href="{{ route('inventarioProducto.crud', 1) }}">
+                                                Existencias
+                                            </a>
+                                        </div>
+                                    </li>
+                                @endif
+
+
+
+                                <li class="nav-item dropdown" style="margin-top: 20px">
+                                    <a href="/carrito" id="cart-icon" role="button">
+                                        <i>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d=" M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3
+                                                0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114
+                                                60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0
+                                                .75.75 0 0 1 1.5 0Z" />
+                                            </svg>
+                                        </i>
+                                        <span id="contador-carrito"
+                                            style="position: absolute; right: -10px; background-color: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; font-weight: bold;">
+                                            0
+                                        </span>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
-                        <div class="header_icon d-flex">
-                            <div class="cart-container" style="position: relative;">
-                                <a href="/carrito" id="cart-icon" role="button">
-                                    <i style="font-size: 24px;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                                        </svg>
-                                    </i>
 
-                                    <span id="contador-carrito"
-                                        style="position: absolute; right: -10px; background-color: red; color: white; border-radius: 50%;
-                                        padding: 2px 6px; font-size: 12px; font-weight: bold;">
-                                        0
-                                    </span>
-                                </a>
+                        <!-- Iconos y opciones de usuario en pantallas grandes -->
+                        <div class="d-none d-md-flex align-items-center gap-3">
+                            @if (Auth::check())
+                                <span>Bienvenido(a), {{ Auth::user()->Usuario }}</span>
+                                <form method="POST" action="{{ route('logout') }}" style="margin: 0;">
+                                    @csrf
+                                    <button type="submit" class="genric-btn primary-border circle">Cerrar
+                                        sesión</button>
+                                </form>
+                            @else
+                                <a href="{{ route('register') }}"
+                                    class="genric-btn primary-border circle">Registrarse</a>
+                                <a href="{{ route('login') }}" class="genric-btn success-border circle">Iniciar
+                                    sesión</a>
+                            @endif
+                        </div>
+
+                        <!-- Versión colapsable para dispositivos móviles -->
+                        <div class="d-md-none">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#mobileUserOptions" aria-controls="mobileUserOptions"
+                                aria-expanded="false" aria-label="Toggle navigation" style="margin-left: 80%;">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="mobileUserOptions">
+                                <ul class="navbar-nav" style="margin-left: auto; text-align: right;">
+                                    @if (Auth::check())
+                                        <li class="nav-item">
+                                            <span class="nav-link">Bienvenido(a), {{ Auth::user()->Usuario }}</span>
+                                        </li>
+                                        <li class="nav-item">
+                                            <form method="POST" action="{{ route('logout') }}" style="margin: 0;">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="genric-btn primary-border circle nav-link">Cerrar
+                                                    sesión</button>
+                                            </form>
+                                        </li>
+                                    @else
+                                        <li class="nav-item">
+                                            <a href="{{ route('register') }}"
+                                                class="genric-btn primary-border circle nav-link">Registrarse</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('login') }}"
+                                                class="genric-btn success-border circle nav-link">Iniciar sesión</a>
+                                        </li>
+                                    @endif
+                                </ul>
                             </div>
                         </div>
 
@@ -123,17 +212,7 @@
                 </div>
             </div>
         </div>
-        <div class="search_input" id="search_input_box">
-            <div class="container ">
-                <form class="d-flex justify-content-between search-inner">
-                    <input type="text" class="form-control" id="search_input" placeholder="Search Here">
-                    <button type="submit" class="btn"></button>
-                    <span class="ti-close" id="close_search" title="Close Search"></span>
-                </form>
-            </div>
-        </div>
     </header>
-
     @yield('content')
 
     <script src="{{ asset('js/jquery-1.12.1.min.js') }}"></script>

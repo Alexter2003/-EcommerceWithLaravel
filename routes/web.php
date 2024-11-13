@@ -3,12 +3,13 @@
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriasController;
-use App\Http\Controllers\ControllerHome;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\InventarioProductoController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\ProductoController;
-use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SucursalController;
+use App\Http\Controllers\TrasladoController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 //Rutas con ProductoController
@@ -95,26 +96,38 @@ Route::controller(InventarioProductoController::class)->group(function () {
     Route::put('/inventarioPorducto/editar/{id}', 'update')->name('inventarioProducto.update');
 });
 
-//carrito
+Route::controller(UsuarioController::class)->group(function () {
+    //Tabla de usuarios
+    Route::get('/crudUsuarios', 'obtenerUsuarios')->name('usuarios.crud');
+    //Vista para editar usuario
+    Route::get('/editarUsuario/{id}', 'editarUsuarioView')->name('editarUsuario');
+    //editar usuario
+    Route::put('/usuario/editar/{id}', 'update')->name('usuarios.update');
+});
+
+//vista del carrito
 Route::get('/carrito', function () {
     return view('carrito');
 });
-
+//vista de checkout
 Route::get('/checkout', function () {
     return view('checkout');
 });
 
 //rutas para usuarios y roles
 // Autenticación
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
+Route::get('/register', [AuthController::class, 'formularioRegistro'])->name('register');
+Route::post('/register', [AuthController::class, 'registrar']);
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [AuthController::class, 'formularioLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Gestión de Roles
-Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
-Route::post('/roles/assign/{userId}', [RoleController::class, 'assignRole'])->name('roles.assign');
-Route::post('/roles/remove/{userId}', [RoleController::class, 'removeRole'])->name('roles.remove');
+// checkout
+Route::middleware('auth')->group(function () {
+    Route::get('/checkout', [CheckoutController::class, 'verCheckout'])->name('checkout.show');
+    Route::post('/checkout', [CheckoutController::class, 'createPedido'])->name('checkout.create');
+});
 
+Route::post('/traslados', [TrasladoController::class, 'store'])->name('traslados.store');
+Route::get('/crearTraslado', [TrasladoController::class, 'trasladoView'])->name('traslados.show');

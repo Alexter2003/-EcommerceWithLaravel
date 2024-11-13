@@ -31,7 +31,7 @@
                 <!-- Botones de acción -->
                 <div class="checkout_btn_inner float-right">
                     <a class="btn_1" href="/productos/categorias">Continuar Comprando</a>
-                    <a class="btn_1 checkout_btn_1" href="#">Proceder a la compra</a>
+                    <a class="btn_1 checkout_btn_1" href="/checkout">Proceder a la compra</a>
                 </div>
             </div>
         </div>

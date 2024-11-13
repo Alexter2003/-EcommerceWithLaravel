@@ -9,6 +9,20 @@
     @endif
     <section class="banner_part">
         <div class="container">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                <script>
+                    localStorage.removeItem('carrito'); // Esto borra el carrito guardado en localStorage
+                </script>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <div class="banner_slider owl-carousel">
@@ -22,7 +36,8 @@
                                                 <div class="banner_text_iner">
                                                     <h1>{{ $producto->Nombre }}</h1>
                                                     <p>{{ $producto->Descripcion }}</p>
-                                                    <a href="#" class="btn_2">buy now</a>
+                                                    <a href="/producto/{{ $producto->idProductos }}" class="btn_2">buy
+                                                        now</a>
                                                 </div>
                                             </div>
                                         </div>
